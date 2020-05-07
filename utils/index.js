@@ -4,7 +4,9 @@
  */
 
  const searchRepo = require('./searchRepo.js')
+ const searchUser = require('./searchUser.js')
 
  module.exports = {
-     searchRepo
+     searchRepo,
+     searchUser
  }

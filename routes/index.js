@@ -39,6 +39,22 @@ app.get("/api/searchrepo", (req, res) => {
     });
 });
 
+app.get("/api/specificuser", (req, res) => {
+    const user = req.query.q
+    res.setHeader("Cache-Control", "public,max-age=3600,s-maxage=30");
+    setImmediate(() => {
+      try {
+        GithubWrapper.searchUser(user)
+          .then((data) => {
+            res.json(data);
+          })
+          .catch((err) => console.log(err));
+      } catch (e) {
+        res.status(400).send("Something went wrong");
+      }
+    });
+});
+
 app.use(express.urlencoded({ extended: false }));
 app.listen(port, () => {
   console.log(`Server listen on port ${port}`);
