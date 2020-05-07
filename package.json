@@ -4,6 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "author": "Satya wikananda <satywikananda456@gmail.com>",
+  "scripts": {
+    "start": "nodemon ./routes/index.js"
+  },
   "dependencies": {
     "axios": "^0.19.2",
     "cors": "^2.8.5",
