@@ -4,6 +4,7 @@ const port = 8080;
 const cors = require("cors");
 const http = require("http");
 const https = require("https");
+const path = require("path")
 const GithubWrapper = require('../utils')
 
 http.globalAgent.maxSockets = Infinity;
@@ -11,17 +12,16 @@ https.globalAgent.maxSockets = Infinity;
 
 app.use(cors());
 
-app.get('/', (req,res) => {
-    setImmediate(() => {
-        try {
-          res.json({
-              msg: 'hello world'
-          })
-        } catch (e) {
-          res.status(400).send("Something went wrong");
-        }
-    });
-})
+app.get("/", (req, res) => {
+  setImmediate(() => {
+    try {
+      res.setHeader("Cache-Control", "public,max-age=0");
+      res.sendFile(path.join(__dirname, "../index.html"));
+    } catch (e) {
+      res.status(400).send("Something went wrong");
+    }
+  });
+});
 
 app.get("/api/searchrepo", (req, res) => {
     const repo = req.query.q
@@ -48,7 +48,7 @@ app.get("/api/searchrepo", (req, res) => {
     });
 });
 
-app.get("/api/specificuser", (req, res) => {
+app.get("/api/detailuser", (req, res) => {
     const user = req.query.q
     res.setHeader("Cache-Control", "public,max-age=3600,s-maxage=30");
     setImmediate(() => {
