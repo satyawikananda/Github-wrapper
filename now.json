@@ -1,0 +1,19 @@
+{
+    "version": 2,
+    "github": {
+        "enabled": false
+    },
+    "builds": [
+        {
+          "src": "/routes/index.js",
+          "use": "@now/node-server"
+        }
+    ],
+    "routes": [
+        {
+          "src": "/.*",
+          "dest": "/routes/index.js",
+          "methods": ["GET"]
+        }
+    ]
+}
