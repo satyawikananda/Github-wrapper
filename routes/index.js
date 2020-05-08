@@ -28,11 +28,20 @@ app.get("/api/searchrepo", (req, res) => {
     res.setHeader("Cache-Control", "public,max-age=3600,s-maxage=30");
     setImmediate(() => {
       try {
-        GithubWrapper.searchRepo(repo)
-          .then((data) => {
-            res.json(data);
-          })
-          .catch((err) => console.log(err));
+        if(repo == '' || repo == null){
+          res.status(400).send({
+            code: res.statusCode,
+            success: false,
+            message: "Query string can not be empty!",
+            creator: "Satya Wikananda"
+          });
+        }else{
+          GithubWrapper.searchRepo(repo)
+            .then((data) => {
+              res.json(data);
+            })
+            .catch((err) => console.log(err));
+        }
       } catch (e) {
         res.status(400).send("Something went wrong");
       }
@@ -44,11 +53,20 @@ app.get("/api/specificuser", (req, res) => {
     res.setHeader("Cache-Control", "public,max-age=3600,s-maxage=30");
     setImmediate(() => {
       try {
-        GithubWrapper.searchUser(user)
-          .then((data) => {
-            res.json(data);
-          })
-          .catch((err) => console.log(err));
+        if(user == '' || user == null){
+          res.status(400).send({
+            code: res.statusCode,
+            success: false,
+            message: "Query string can not be empty!",
+            creator: "Satya Wikananda"
+          });
+        }else{
+          GithubWrapper.searchUser(user)
+            .then((data) => {
+              res.json(data);
+            })
+            .catch((err) => console.log(err));
+        }
       } catch (e) {
         res.status(400).send("Something went wrong");
       }
